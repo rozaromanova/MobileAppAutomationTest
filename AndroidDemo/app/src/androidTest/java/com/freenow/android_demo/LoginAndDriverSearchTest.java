@@ -43,8 +43,9 @@ public class LoginAndDriverSearchTest {
 
 
     @Test
-    public void LogInAndSearchTest() {
+    public void LogInAndSearchTest() throws InterruptedException {
 
+        Thread.sleep(2000);
         //login - 'happy path'
         onView(allOf(withId(R.id.edt_username), is(instanceOf(android.widget.EditText.class)),
                 isDisplayed())).perform(click());
@@ -55,6 +56,8 @@ public class LoginAndDriverSearchTest {
         onView(allOf(withId(R.id.edt_password), is(instanceOf(android.widget.EditText.class)),
                 isDisplayed())).perform(replaceText(password));
         onView(withId(R.id.btn_login)).perform(click());
+
+        Thread.sleep(2000);
 
         //search 'sa'
         onView(allOf(withId(R.id.textSearch), is(instanceOf(android.widget.AutoCompleteTextView.class)),
