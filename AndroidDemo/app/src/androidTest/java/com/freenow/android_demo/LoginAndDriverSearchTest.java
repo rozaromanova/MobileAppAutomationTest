@@ -44,7 +44,8 @@ public class LoginAndDriverSearchTest {
 
     @Test
     public void LogInAndSearchTest() throws InterruptedException {
-
+        // unfortunately I didn't have enough time to figure out how to replace sleep with Idling resource
+        // which would be much better alternative
         Thread.sleep(2000);
         //login - 'happy path'
         onView(allOf(withId(R.id.edt_username), is(instanceOf(android.widget.EditText.class)),
