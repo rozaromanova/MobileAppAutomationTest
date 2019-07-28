@@ -1,11 +1,14 @@
 package com.freenow.android_demo;
 
+import android.support.test.espresso.IdlingRegistry;
+import android.support.test.espresso.matcher.RootMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.freenow.android_demo.activities.MainActivity;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +16,7 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -36,6 +40,8 @@ public class LoginAndDriverSearchTest {
     public GrantPermissionRule permissionRule =
             GrantPermissionRule.grant(
                     "android.permission.ACCESS_FINE_LOCATION");
+
+
     @Test
     public void LogInAndSearchTest() {
 
@@ -55,6 +61,13 @@ public class LoginAndDriverSearchTest {
                 isDisplayed())).perform(click());
         onView(allOf(withId(R.id.textSearch), is(instanceOf(android.widget.AutoCompleteTextView.class)),
                 isDisplayed())).perform(replaceText("sa"));
+
+        // select driver and call
+        onView(withText("Sarah Scott")).inRoot(RootMatchers.isPlatformPopup()).perform(click());
+        onView(withId(R.id.textViewDriverName)).check(matches(withText("Sarah Scott")));
+
+        // call the driver
+        onView(withId(R.id.fab)).perform(click());
 
     }
 
